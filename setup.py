@@ -1,9 +1,9 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="SovitsTokenizer",
+    name="sovits_tokenizer",
     version="0.0.1",
-    author="Your Name",
+    author="Joseph Cheng",
     author_email="joseph.cheng@hon9kon9ize.com",
     description="A module for tokenizing speech data.",
     long_description=open("README.md").read(),
