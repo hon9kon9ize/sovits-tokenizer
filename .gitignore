@@ -1,0 +1,3 @@
+*.pth
+logs
+__pycache__
