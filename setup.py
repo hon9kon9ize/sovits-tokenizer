@@ -7,6 +7,7 @@ setup(
     author_email="joseph.cheng@hon9kon9ize.com",
     description="A module for tokenizing speech data.",
     long_description=open("README.md").read(),
+    license="The MIT License",
     long_description_content_type="text/markdown",
     url="https://github.com/hon9kon9ize/sovits-tokenizer",
     packages=find_packages(),
@@ -26,9 +27,4 @@ setup(
         "transformers",
         "einops",
     ],
-    entry_points={
-        "console_scripts": [
-            "sovits_tokenizer=sovits_tokenizer.SovitsTokenizer:main",
-        ],
-    },
 )
