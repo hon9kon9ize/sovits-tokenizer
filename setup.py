@@ -10,7 +10,7 @@ setup(
     license="The MIT License",
     long_description_content_type="text/markdown",
     url="https://github.com/hon9kon9ize/sovits-tokenizer",
-    packages=find_packages(),
+    packages=find_packages(include=["sovits_tokenizer*"]),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
