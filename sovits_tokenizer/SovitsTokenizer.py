@@ -93,7 +93,7 @@ class SovitsTokenizer:
 
         outputs = self.vqvae.decode(codes, [refer])
 
-        return outputs.squeeze().cpu().numpy()
+        return outputs.squeeze().detach().cpu().numpy()
 
     def __call__(self, audio_path) -> List[int]:
         return self.encode(audio_path)
