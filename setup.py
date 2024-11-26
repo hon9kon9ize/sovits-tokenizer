@@ -27,7 +27,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "sovits_tokenizer=SovitsTokenizer.SovitsTokenizer:main",
+            "sovits_tokenizer=sovits_tokenizer.SovitsTokenizer:main",
         ],
     },
 )
