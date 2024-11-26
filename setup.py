@@ -24,6 +24,7 @@ setup(
         "pytorch-lightning",
         "ffmpeg-python",
         "transformers",
+        "einops",
     ],
     entry_points={
         "console_scripts": [
