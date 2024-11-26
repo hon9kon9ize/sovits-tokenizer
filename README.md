@@ -35,11 +35,11 @@ recon_wav = speech_tokenizer.decode(codes, reference_audio)
 
 Input audio:
 
-![Original Audio](./original.mp4)
+./original.mp4
 
 Reconstructed audio:
 
-![Reconstructed Audio](./recon.mp4)
+./recon.mp4
 
 
 ## Acknowledgment and Inspiration
