@@ -1,6 +1,6 @@
 # SovitsTokenizer
 
-SpeechTokenizer: A low-bitrate audio tokenizer that converts speech into discrete tokens (as low as 25 tokens per second) while preserving semantic and prosodic richness. Leveraging the pre-trained SoVITs model from [GPT-SoVITs](https://github.com/RVC-Boss/GPT-SoVITS), it fine-tunes VQ-VAE layers for efficient audio compression and utilizes HuBERT’s robust semantic extraction. By combining HuBERT’s deep linguistic understanding with VQ-VAE’s detailed capture of prosodic and phonetic features, and decoupled text embedding from MTRE module, SpeechTokenizer produces compact yet highly expressive speech discrete units, which can also be used for voice conversion by decoding the tokens with a reference audio for speaker adaptation.
+SovitsTokenizer: A low-bitrate audio tokenizer that converts speech into discrete tokens (as low as 25 tokens per second) while preserving semantic and prosodic richness. Leveraging the pre-trained SoVITs model from [GPT-SoVITs](https://github.com/RVC-Boss/GPT-SoVITS), it fine-tunes VQ-VAE layers for efficient audio compression and utilizes HuBERT’s robust semantic extraction. By combining HuBERT’s deep linguistic understanding with VQ-VAE’s detailed capture of prosodic and phonetic features, and decoupled text embedding from MTRE module, SpeechTokenizer produces compact yet highly expressive speech discrete units, which can also be used for voice conversion by decoding the tokens with a reference audio for speaker adaptation.
 
 ## Installation
 
