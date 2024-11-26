@@ -10,15 +10,14 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from module import commons
-from module import modules
-from module import attentions
+from . import modules
+from . import attentions
 
-from torch.nn import Conv1d, ConvTranspose1d, AvgPool1d, Conv2d
+from torch.nn import Conv1d, ConvTranspose1d, Conv2d
 from torch.nn.utils import weight_norm, remove_weight_norm, spectral_norm
-from module.commons import init_weights, get_padding
-from module.mrte_model import MRTE
-from module.quantize import ResidualVectorQuantizer
+from .commons import init_weights, get_padding, sequence_mask, rand_slice_segments
+from .mrte_model import MRTE
+from .quantize import ResidualVectorQuantizer
 
 from torch.cuda.amp import autocast
 import contextlib
@@ -224,9 +223,7 @@ class SSLEncoder(nn.Module):
         self.proj = nn.Conv1d(hidden_channels, out_channels * 2, 1)
 
     def forward(self, y, y_lengths, ge, speed=1, test=None):
-        y_mask = torch.unsqueeze(commons.sequence_mask(y_lengths, y.size(2)), 1).to(
-            y.dtype
-        )
+        y_mask = torch.unsqueeze(sequence_mask(y_lengths, y.size(2)), 1).to(y.dtype)
 
         y = self.ssl_proj(y * y_mask) * y_mask
 
@@ -319,9 +316,7 @@ class PosteriorEncoder(nn.Module):
     def forward(self, x, x_lengths, g=None):
         if g != None:
             g = g.detach()
-        x_mask = torch.unsqueeze(commons.sequence_mask(x_lengths, x.size(2)), 1).to(
-            x.dtype
-        )
+        x_mask = torch.unsqueeze(sequence_mask(x_lengths, x.size(2)), 1).to(x.dtype)
         x = self.pre(x) * x_mask
         x = self.enc(x, x_mask, g=g)
         stats = self.proj(x) * x_mask
@@ -362,9 +357,7 @@ class WNEncoder(nn.Module):
         self.norm = modules.LayerNorm(out_channels)
 
     def forward(self, x, x_lengths, g=None):
-        x_mask = torch.unsqueeze(commons.sequence_mask(x_lengths, x.size(2)), 1).to(
-            x.dtype
-        )
+        x_mask = torch.unsqueeze(sequence_mask(x_lengths, x.size(2)), 1).to(x.dtype)
         x = self.pre(x) * x_mask
         x = self.enc(x, x_mask, g=g)
         out = self.proj(x) * x_mask
@@ -863,9 +856,7 @@ class SynthesizerTrn(nn.Module):
         self.freeze_quantizer = freeze_quantizer
 
     def forward(self, ssl, y, y_lengths):
-        y_mask = torch.unsqueeze(commons.sequence_mask(y_lengths, y.size(2)), 1).to(
-            y.dtype
-        )
+        y_mask = torch.unsqueeze(sequence_mask(y_lengths, y.size(2)), 1).to(y.dtype)
         ge = self.ref_enc(y[:, :704] * y_mask, y_mask)
 
         with autocast(enabled=False):
@@ -890,9 +881,7 @@ class SynthesizerTrn(nn.Module):
         z, m_q, logs_q, y_mask = self.enc_q(y, y_lengths, g=ge)
         z_p = self.flow(z, y_mask, g=ge)
 
-        z_slice, ids_slice = commons.rand_slice_segments(
-            z, y_lengths, self.segment_size
-        )
+        z_slice, ids_slice = rand_slice_segments(z, y_lengths, self.segment_size)
         o = self.dec(z_slice, g=ge)
         return (
             o,
@@ -905,9 +894,7 @@ class SynthesizerTrn(nn.Module):
         )
 
     def infer(self, ssl, y, y_lengths, test=None, noise_scale=0.5):
-        y_mask = torch.unsqueeze(commons.sequence_mask(y_lengths, y.size(2)), 1).to(
-            y.dtype
-        )
+        y_mask = torch.unsqueeze(sequence_mask(y_lengths, y.size(2)), 1).to(y.dtype)
         ge = self.ref_enc(y[:, :704] * y_mask, y_mask)
 
         ssl = self.ssl_proj(ssl)
@@ -932,7 +919,7 @@ class SynthesizerTrn(nn.Module):
             if refer is not None:
                 refer_lengths = torch.LongTensor([refer.size(2)]).to(refer.device)
                 refer_mask = torch.unsqueeze(
-                    commons.sequence_mask(refer_lengths, refer.size(2)), 1
+                    sequence_mask(refer_lengths, refer.size(2)), 1
                 ).to(refer.dtype)
                 ge = self.ref_enc(refer[:, :704] * refer_mask, refer_mask)
             return ge

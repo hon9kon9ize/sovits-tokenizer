@@ -1,22 +1,14 @@
-import time
-import logging
 import os
 import random
 import traceback
-import numpy as np
 import torch
 import torch.utils.data
 from tqdm import tqdm
 
-from module import commons
-from module.mel_processing import spectrogram_torch
+from .mel_processing import spectrogram_torch
 
-from utils import load_wav_to_torch, load_audio
+from utils import load_audio
 import torch.nn.functional as F
-from functools import lru_cache
-import requests
-from scipy.io import wavfile
-from io import BytesIO
 
 
 # ZeroDivisionError fixed by Tybost (https://github.com/RVC-Boss/GPT-SoVITS/issues/79)

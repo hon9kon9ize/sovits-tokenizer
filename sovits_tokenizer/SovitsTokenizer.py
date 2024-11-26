@@ -1,8 +1,8 @@
 import os
 from typing import List
-from feature_extractor.hubert import HuBERT
-from module.models import SynthesizerTrn
-from utils import get_wav, get_spepc, HParams, DictToAttrRecursive
+from .feature_extractor.hubert import HuBERT
+from .module.models import SynthesizerTrn
+from .utils import get_wav, get_spepc, HParams, DictToAttrRecursive
 import numpy as np
 import json
 import torch

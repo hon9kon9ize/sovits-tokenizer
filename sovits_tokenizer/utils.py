@@ -20,7 +20,7 @@ MATPLOTLIB_FLAG = False
 logging.basicConfig(stream=sys.stdout, level=logging.ERROR)
 logger = logging
 
-from module.mel_processing import spectrogram_torch
+from .module.mel_processing import spectrogram_torch
 
 zero_wav = np.zeros(
     int(16000 * 0.3),
