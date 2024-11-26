@@ -23,8 +23,8 @@ speech_tokenizer = SpeechTokenizer(generator_weights, hubert_base_path, device=d
 
 print(codes.shape) # (1, 1, 538) batch_size, codebook_size, seq_len
 print(outputs.shape) # (688640,)
-print("duration", outputs.shape[0] / 16000) # duration 21 
-print("TBS", codes.shape[-1] / math.ceil(outputs.shape[0] / 34000)) # TBS 25.61904761904762
+print("duration", outputs.shape[0] / 32000) # duration 21.52 
+print("TBS", codes.shape[-1] / math.ceil(outputs.shape[0] / 32000)) # TBS 25
 
 # Reconstruction and Voice Conversion
 reference_audio = "path/to/reference_audio.wav"
