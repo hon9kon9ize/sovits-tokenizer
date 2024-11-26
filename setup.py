@@ -1,14 +1,14 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="SpeechTokenizer",
+    name="SovitsTokenizer",
     version="0.0.1",
     author="Your Name",
     author_email="joseph.cheng@hon9kon9ize.com",
     description="A module for tokenizing speech data.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/hon9kon9ize/SpeechTokenizer",
+    url="https://github.com/hon9kon9ize/sovits-tokenizer",
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -27,7 +27,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "speechtokenizer=SpeechTokenizer.SpeechTokenizer:main",
+            "sovits_tokenizer=SovitsTokenizer.SovitsTokenizer:main",
         ],
     },
 )
