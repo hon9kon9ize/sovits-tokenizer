@@ -19,7 +19,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 generator_weights = "pretrained_models/s2G2333k.pth" # download from https://huggingface.co/lj1995/GPT-SoVITS/tree/main/gsv-v2final-pretrained
 hubert_base_path = "pretrained_models/chinese-hubert-base" # download from https://huggingface.co/lj1995/GPT-SoVITS/tree/main/chinese-hubert-base
 
-speech_tokenizer = SpeechTokenizer(generator_weights, hubert_base_path, device=device)
+speech_tokenizer = SovitsTokenizer(generator_weights, hubert_base_path, device=device)
 
 print(codes.shape) # (1, 1, 538) batch_size, codebook_size, seq_len
 print(outputs.shape) # (688640,)
